@@ -70,11 +70,12 @@ UdpClientHelper::UdpClientHelper ()
   m_factory.SetTypeId (UdpClient::GetTypeId ());
 }
 
-UdpClientHelper::UdpClientHelper (Address address, uint16_t port)
+UdpClientHelper::UdpClientHelper (Address address, uint16_t port, uint8_t tos)
 {
   m_factory.SetTypeId (UdpClient::GetTypeId ());
   SetAttribute ("RemoteAddress", AddressValue (address));
   SetAttribute ("RemotePort", UintegerValue (port));
+  SetAttribute ("ToS", UintegerValue (tos));
 }
 
 UdpClientHelper::UdpClientHelper (Address address)

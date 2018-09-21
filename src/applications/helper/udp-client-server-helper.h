@@ -109,9 +109,10 @@ public:
    *
    * \param ip The IP address of the remote UDP server
    * \param port The port number of the remote UDP server
+   * \param tos ToS byte for the underlying socket
    */
 
-  UdpClientHelper (Address ip, uint16_t port);
+  UdpClientHelper (Address ip, uint16_t port, uint8_t tos = 0);
   /**
    *  Create UdpClientHelper which will make life easier for people trying
    * to set up simulations with udp-client-server. Use this variant with

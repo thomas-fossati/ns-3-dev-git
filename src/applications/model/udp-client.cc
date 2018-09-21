@@ -64,6 +64,10 @@ UdpClient::GetTypeId (void)
                    UintegerValue (100),
                    MakeUintegerAccessor (&UdpClient::m_peerPort),
                    MakeUintegerChecker<uint16_t> ())
+    .AddAttribute ("ToS", "ToS byte to be set on outbound packets",
+                   UintegerValue (0),
+                   MakeUintegerAccessor (&UdpClient::m_ipTos),
+                   MakeUintegerChecker<uint8_t> ())
     .AddAttribute ("PacketSize",
                    "Size of packets generated. The minimum packet size is 12 bytes which is the size of the header carrying the sequence number and the time stamp.",
                    UintegerValue (1024),
@@ -157,6 +161,7 @@ UdpClient::StartApplication (void)
 
   m_socket->SetRecvCallback (MakeNullCallback<void, Ptr<Socket> > ());
   m_socket->SetAllowBroadcast (true);
+  if (m_ipTos) m_socket->SetIpTos(m_ipTos);
   m_sendEvent = Simulator::Schedule (Seconds (0.0), &UdpClient::Send, this);
 }
 
